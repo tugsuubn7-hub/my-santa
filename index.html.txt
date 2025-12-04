@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Santa Surprise</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family:"Playfair Display", serif;
+      background: linear-gradient(180deg,#1b0f13 0%, #2b1217 100%);
+      min-height:100vh;
+      color:white;
+      position:relative;
+      overflow-x:hidden;
+    }
+
+    /* floating sparkles */
+    .floating-stars span {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 200, 220, 0.5);
+      border-radius: 50%;
+      animation: floatUp 6s linear infinite;
+      filter: blur(1px);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.4); opacity: 0.4; }
+      100% { transform: translateY(-120vh) scale(1); opacity: 0; }
+    }
+
+    /* glass card */
+    .glass{
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius:16px;
+      padding:20px;
+      backdrop-filter:blur(6px);
+    }
+
+    .btn-pink{
+      background: #f6a6b0;
+      color:#2b0f12;
+      padding:14px 34px;
+      border-radius:30px;
+      font-weight:600;
+    }
+
+    /* popup */
+    .popup-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-box {
+      background: rgba(255,255,255,0.12);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+      text-align: center;
+      width: 80%;
+      max-width: 360px;
+      animation: pop 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+
+</head>
+<body class="flex items-start justify-center py-16">
+
+  <!-- floating sparkles -->
+  <div class="floating-stars">
+    <span style="left:10%; animation-delay:0s;"></span>
+    <span style="left:25%; animation-delay:1s;"></span>
+    <span style="left:40%; animation-delay:2.5s;"></span>
+    <span style="left:55%; animation-delay:3.2s;"></span>
+    <span style="left:70%; animation-delay:1.8s;"></span>
+    <span style="left:85%; animation-delay:0.6s;"></span>
+  </div>
+
+  <main style="max-width:430px;width:100%;padding:0 20px;">
+
+    <div class="text-center mb-6">
+      <h1 class="text-4xl">Сайн уу</h1>
+      <h2 id="username" class="text-5xl font-bold" style="color:#f6a6b0">Gegee-д</h2>
+    </div>
+
+    <div class="glass text-center">
+      <p class="text-lg leading-7 text-gray-200">
+        Хэн нэгний бэлэг чамайг хүлээж байна<br>
+        <span class="text-xl text-white font-semibold">Түүнийг илчлэхийг хүсэж байна уу?</span>
+      </p>
+
+      <div style="font-size:70px; margin:25px 0; color:#f6a6b0;">🎁</div>
+
+      <button onclick="openPopup()" class="btn-pink">Сантаг илчлэх</button>
+    </div>
+
+  </main>
+
+  <!-- Popup -->
+  <div id="popup" class="popup-bg">
+    <div class="popup-box">
+      <h2 class="text-2xl font-bold mb-4">🎁 Чиний бэлэг</h2>
+      <p class="mb-4">Энд өөрийн бичих мессежийг тавина. ❤️<br>Хүсвэл зураг ч оруулж болно.</p>
+      <button onclick="closePopup()" class="btn-pink">Хаах</button>
+    </div>
+  </div>
+
+<script>
+/* popup open close */
+function openPopup() {
+  document.getElementById('popup').style.display = 'flex';
+}
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+/* personalize name */
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+
+if (name) {
+  document.getElementById("username").innerText = name + "-д";
+}
+</script>
+
+</body>
+</html>
